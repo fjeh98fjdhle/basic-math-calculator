@@ -10,4 +10,4 @@ derivative of a given function.
 mean slope of a given function for intervall a,b. 
 basic calculations. 
 text-interface. 
-in englisch
+in englisch.
