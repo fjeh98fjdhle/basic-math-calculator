@@ -1,0 +1,29 @@
+# Berechnen einer mittleren Änderungsrate
+
+#Eingabe der Werte.
+print("Bitte geben sie den ersten Punkt ein.")
+x_1 = float(input("x-wert: "))
+y_1 = float(input("y-wert: "))
+
+print("Bitte geben sie den zweiten Punkt ein. ")
+x_2 = float(input("x-wert: "))
+y_2 = float(input("y-wert: "))
+
+#Berchnung
+dif_y = y_2 - y_1
+dif_x = x_2 - x_1
+if dif_x == 0: 
+    m = 0 
+if dif_y == 0: 
+    print("Die Rechnung ist leider nicht möglich.")
+else: 
+    m = dif_y - dif_x
+
+
+#Ausgeben
+x_1 = str(int(x_1))
+x_2 = str(int(x_2))
+y_1 = str(int(y_1))
+y_2 = str(int(y_2))
+m = str(m)
+print("Die mittlere Steigung für die Koordinaten " + "("+x_1+"," +y_1+")" + " und " + "("+x_2+"," +y_2+")" + " ist " + m)
