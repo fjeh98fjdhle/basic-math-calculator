@@ -1,0 +1,36 @@
+Funktion_f = input("Geben sie bitte die vollständige Funktion an.")
+
+#entfernen von f(x) = 
+Funktion_f = list(Funktion_f)
+for w in Funktion_f:
+    if w == "=": 
+        equal_index = Funktion_f.index("=") + 1
+        Funktion_f = Funktion_f[equal_index:] 
+    else:
+        Funktion_f = Funktion_f
+#rekonstruieren der Funktion
+eq_store = '' # equation-storing
+for w in Funktion_f: 
+    eq_store += w #now the equation is rewritten as a string. 
+print(eq_store)
+# restoring in a list with correct dtype.
+num_store = []
+for w in eq_store: 
+    if w == "*": 
+        num_store.append(w) 
+    elif w == "x": 
+         num_store.append("x") 
+    elif w == "+":
+        num_store.append("+")
+    elif w == "-":
+        num_store.append("-")
+    elif w == " ": 
+        w = w 
+    elif w == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 7 or 8 or 9 or 0: 
+        num_store.append(float(w))
+    else: 
+        print("this is a mistake")
+
+# Eingabe vom Punkt (x, y) in der Funktion
+print("Geben sie den Punkt an")
+x = float(input('x-wert: '))
