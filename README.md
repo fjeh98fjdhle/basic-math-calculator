@@ -12,4 +12,4 @@ basic calculations.
 text-interface. 
 in englisch.
 get it to even work(if you run the files individually they work, but not accross multiple files.)
-Explenation of code(youtube, and as "#'s" in the text.
+Explenation of code(youtube, and as "#'s" in the code.
