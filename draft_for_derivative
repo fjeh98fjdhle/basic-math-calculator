@@ -14,6 +14,36 @@ def cleaning_fx():
         eq_store += w #now the equation is rewritten as a string. 
     return (eq_store)
 
+def adding_num():
+    count_iteration = 0
+    num_iterations = 0
+    num_store = restoring_func()
+    for w in num_store:
+        num_iterations += 1
+
+    #goes through the elements in the list and eliminates unnecessary 
+
+    #for x in range(num_iterations)
+    zusammenfügen = []
+    for a in num_store: 
+        count_iteration += 1
+        for x in range(5):
+            if a != 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 0: 
+                not_number = a
+                num_store.append(not_number)
+            elif a == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 0: 
+                for a in num_store[num_store.index(a) + x] == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 0: 
+                    a = a
+                    zusammenfügen.append(a)                
+                    if a != 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 0:
+                        break
+
+        
+                
+            
+            
+
+
 def restoring_func():
 
     eq_store = cleaning_fx()
@@ -53,6 +83,15 @@ def adding_x():
 
     return num_store
 
+
+
+
+
+
+
+
+def txt_to_func(): 
+    return adding_x()
 
 def txt_to_func(): 
     return adding_x()
