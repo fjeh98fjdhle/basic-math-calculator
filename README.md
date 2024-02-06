@@ -11,3 +11,4 @@ mean slope of a given function for intervall a,b.
 basic calculations. 
 text-interface. 
 in englisch.
+get it to even work(if you run the files individually they work, but not accross multiple files.)
