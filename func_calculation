@@ -1,0 +1,145 @@
+list = exchange_x()
+#this function goes through the list and takes out all the operations signs. It then iteratively goes through that op_list and looks for the 
+#individual value mapped to that operation. This allow you to access the highest possible operation since it then goes through the loop where 
+#it effectively points out the operation with the highest value. That value is then returned by the function.  
+def priority(list):
+    list  = list
+    count_op = 0
+    value_op ={'**': 3, "*":2, "/":2, "+":1, "-":1}
+    op_priority = {"current_op": 0}
+    list_op = []
+    for a in list:
+        if isinstance(a, (str)) == True:
+            list_op.append(a)
+    for a in list_op: 
+        count_op += 1
+        if value_op[a] > op_priority["current_op"]:
+            op_priority["current_op"] = value_op[a]   
+
+    return op_priority["current_op"]
+
+
+def op_selection(list,  op_prioritizer): 
+    value_op ={'**': 3, "*":2, "/":2, "+":1, "-":1}
+    list = list
+    list_count = -1
+    for a in list: 
+        list_count += 1 #total amount of values in a list. normalized to the index of the values in the list 
+    store_value = []  
+    store_index_op = []
+
+    #just some random things to store the data.
+
+
+
+    index_count = -1
+    for a in list:
+        index_count += 1 # index of each value in list.
+        if isinstance(a,(str)) == True: #these 2 if basically assure that (1) it is an operator/string and (2) that the value mapped to the operator is the op_prioritize/the highest priority operator. 
+            if value_op[a] == op_prioritizer: # If this is the case, then one performs the operation with the value indexd before and after it. 
+                if a == "*":
+                    num_before = list[index_count-1]
+                    num_after = list[index_count+1]
+                    num_total = num_before * num_after
+                    store_value.append(num_total)
+                    store_index_op.append(index_count)
+            
+                elif a == "+":
+                    num_before = list[index_count-1]
+                    num_after = list[index_count+1]
+                    num_total = num_before + num_after
+                    store_value.append(num_total)
+                    store_index_op.append(index_count)
+
+                elif a == "/":
+                    num_before = list[index_count-1]
+                    num_after = list[index_count+1]
+                    num_total = num_before / num_after
+                    store_value.append(num_total)
+                    store_index_op.append(index_count)
+
+                elif a == "-":
+                    num_before = list[index_count-1]
+                    num_after = list[index_count+1]
+                    num_total = num_before - num_after
+                    store_value.append(num_total)
+                    store_index_op.append(index_count)
+            
+                elif a == "**":
+                    num_before = list[index_count-1]
+                    num_after = list[index_count+1]
+                    num_total = num_before ** num_after
+                    store_value.append(num_total)
+                    store_index_op.append(index_count)
+
+                else:
+                    print("What the fuck is that for an operation?")
+    return [list, num_total, store_index_op[0], list_count]
+#the function returns the initial list, the product of the operation as well as it's index and the total amount of values in the list. 
+
+
+#the function recon_struction then reconstructs by adding what came before the function, then the product of the operation, and finally what 
+#came after the operation. 
+def recon_struction(info):
+
+    list = info[0]
+    num_total = info[1]
+    index_count = info[2]
+    list_count = info[3]
+
+
+    re_con_list = []
+
+    #list contains the index, the list itself and the product of the equation.
+
+    #recon_before
+    for a in list[:index_count-1]: 
+        re_con_list.append(a)
+    #checks if the the value before it is an equation or if the computed value is part of the equation:
+    if list[index_count -2] == "+" or "*" or "-" or "/" or "**":
+        re_con_list.append(num_total)
+    elif isinstance(list[index_count -2], (int, float)) == True:
+        if num_total <= 0:
+            re_con_list.append("-")
+        elif num_total >= 0:
+            re_con_list.append("+")
+            re_con_list.append(num_total)
+    else:
+        print("Here, there is a mistake.")
+    #recon_after 
+    if (index_count +2) <= list_count:
+    #if 2 values added to the index of the operation is still lower than the list_count. In other words if there comes something after this operation. 
+        if list[index_count +2] == "*" or "+" or "-" or "/" or "**":
+            for a in list[(index_count + 2):]:
+                re_con_list.append(a)
+        elif isinstance(list[index_count + 2],(float, int)): 
+            re_con_list.append("+")
+            for a in list[(index_count + 2):]:
+                re_con_list.append(a)
+
+    return re_con_list  
+
+
+#this function ocunts the values in the list and returns how many values there are in this list. 
+def list_counter(list):
+    list = list
+    count = 0
+    for a in list:
+        count += 1
+    
+    return count 
+
+
+
+
+list = exchange_x()
+
+#iterating over the list until the result is equal to one value.
+
+for a in range(5):
+    if list_counter(list) != 1:
+        op_prioritizer = priority(list)
+        op_selec = op_selection(list, op_prioritizer)
+        list = recon_struction(op_selec)
+    else:
+        break
