@@ -4,6 +4,7 @@ just testing some math calculations. Goal is to make a very simple to use math c
 
 Right now:  
 slope between two points
+first draft for calculator. Works with only very specific functions. A lot of mistakes. Will be fixed as the code improves.
 
 Goal: 
 derivative of a given function.
