@@ -9,52 +9,95 @@ def cleaning_fx():
         else:
             Funktion_f = Funktion_f
     #rekonstruieren der Funktion
-    eq_store = '' # equation-storing
+    num_store = '' # equation-storing
     for w in Funktion_f: 
-        eq_store += w #now the equation is rewritten as a string. 
-    return eq_store 
+        num_store += w #now the equation is rewritten as a string. 
+    return num_store 
+
+list = cleaning_fx()
+print(list)
 
 def restoring_func(list):
-
-    eq_store = list
-    
+    list_var = []
+    var_index = []
+    list = list
+    return_list_and_variables = []
     # restoring in a list with correct dtype.
     num_store = []
-    for w in eq_store: 
+    index_count = -1
+    for w in list: 
+        index_count += 1
         if w == "*": 
             num_store.append(w) 
-        elif w == "x": 
-            num_store.append("x") 
+        elif w == ".": 
+            w = "," #this is necessary to later cast it to a float. "1.5" to a float does not work but 1,5 does.
+            num_store.append(w)
         elif w == ",": 
-            num_store.append(",")
+            num_store.append(w)
         elif w == "+":
-            num_store.append("+")
+            num_store.append(w)
         elif w == "-":
-            num_store.append("-")
+            num_store.append(w)
         elif w == " ": 
             w = w 
-        elif w == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14: 
-            num_store.append(int(w))
-        else: 
-            print("this is a mistake")
+        elif w == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 0:
+            num_store.append(float(w))
+
+    #second round where I sort out the ones that strings but not variables.
+    count = -1
+    print(num_store)
+    for w in num_store:
+        count += 1
+        if  isinstance(w, (str)) == True:
+            if w != "*" or "+" or "," or "+" or "-":
+                list_var.append(0) #need to do that. Because otherwise if I call this variable later and it has no value then it will give me an error. So at minimum I need zero value there.
+                list_var.append(w)
+                var_index.append(0)
+                var_index.append(count)
+                print("new variable.")
+
+    #return the list together with the list of variables, the list of the indexes.
+    return_list_and_variables.append(num_store)
+    return_list_and_variables.append(list_var)
     
-    return num_store
+    return return_list_and_variables
+
+list = restoring_func(list)
+print(list)
+
+def restoring_func_2(list):
+    list = list[0]
+    for a in list: 
+        print(a)
 
 
 
 def exchange_x(list): 
-    x = int(input("Geben sie x ein."))
-    num_store = list
+    list = list[0]
+    list_var = list[1]
+    print(list_var)
 
-    x_index = num_store.index("x")
-    num_store.insert(x_index, x)
-    num_store.remove("x")
 
-    return num_store
+    map_var_collection = {} # collects the individual values for all the variables and maps them to the value of the input. 
+    for a in list_var:
+        a_value = input("Geben sie den Wert für" + a + "an.") 
+        map_var_collection[a] = a_value
 
+    count_index = -1
+    for a in list:
+        count_index += 1
+        for var in list_var:
+            if a == var:
+                list[count_index] = map_var_collection[a]
+
+    return list
+
+list = exchange_x(list)
+print(list)
 
 def more_than_2(list):    
     recon_struction_list = []
+    initial_list = list
     count = -1
     count_total = -1
     for a in list: 
@@ -64,7 +107,7 @@ def more_than_2(list):
         if count != count_total:
             if isinstance(list[count], (float, int)) == True:
                 if isinstance(list[count +1], (float, int)) == True:
-                    new_num = str(list[count]) + str(list[count +1])
+                    new_num = str(int(list[count])) + str(int(list[count +1]))
                     new_num = float(new_num)
                     #reconstruction 
                     for a in list[:count]:
@@ -73,13 +116,37 @@ def more_than_2(list):
                     if count+2 < count_total:
                         for a in list[count+2:]:
                             recon_struction_list.append(a)
-                else:
-                    recon_struction_list.append(a)
-            else:
-                recon_struction_list.append(a)
-                
-    return recon_struction_list
+            elif list[count] == "*":
+                if list[count +1] == "*":
+                    new_op = list[count] + list[count +1]
+                    for a in list[:count]:
+                        recon_struction_list.append(a)
+                    recon_struction_list.append(new_op)
+                    if count+2 <= count_total:
+                        for a in list[count+2:]:
+                            recon_struction_list.append(a)
+            elif list[count] == ",":
+                if isinstance(list[count +1], (float, int)) == True:
+                    num_before = list[count -1]
+                    comma = "."
+                    num_after = list[count +1]
+                    new_num = str(int(num_before)) + comma + str(int(num_after))
+                    new_num = float(new_num)
+                    for a in list[:count -1]:
+                        recon_struction_list.append(a)
+                    recon_struction_list.append(new_num)
+                    if count+2 <= count_total:
+                        for a in list[count+2:]:
+                            recon_struction_list.append(a)
 
+        
+    list_count = 0     
+    for a in recon_struction_list: 
+        list_count += 1
+    if list_count == 0:
+        recon_struction_list = initial_list
+
+    return recon_struction_list
 
 def iterations_needed(list):
     counter_iterations = 0
@@ -236,6 +303,7 @@ def list_counter_total(list):
     return count 
 
 def all():
+    #list processing
     list = cleaning_fx()
 
     list = restoring_func(list)
@@ -262,6 +330,7 @@ def all():
             print(list)
             print()
 
+            #actual calculation
             op_prioritizer = priority(list)
             print("This is op_prioritizer")
 
