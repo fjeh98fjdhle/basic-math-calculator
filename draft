@@ -80,19 +80,11 @@ def exchange_x(list):
     intial_list = list
     #we take out the number that tells us where the variables start and take out the rest of the appended variables so that we only have the pure equation. 
     list = list[1:number]
-    print(list)
     list_var = []
     for a in intial_list[number:]:
-        print(intial_list[number:])
         a = a 
-        print(a)
         for var in a:
-            print(var)
             list_var.append(var)
-
-    
-    print(list_var)
-
     
     map_var_collection = {} # collects the individual values for all the variables and maps them to the value of the input. 
 
@@ -103,7 +95,6 @@ def exchange_x(list):
         for a in a_value:  
             a_value = float(a_value)
         map_var_collection[name] = a_value
-        print(map_var_collection)
     
     #value in function adding.
     count_index = -1
@@ -111,7 +102,6 @@ def exchange_x(list):
         count_index += 1
         for var in list_var:
             if a == var:
-                print(a)
                 list[count_index] = map_var_collection[a]
 
     return list
@@ -354,40 +344,17 @@ def list_counter_total(list):
 def all():
     #list processing
     list = cleaning_fx()
-
     list = restoring_func(list)
-    print("This is restoring function.")
-    print(list)
-    print()
-
     list = exchange_x(list)
-    print("This is exachange_x")
-    print(list)
-    print()
-
     in_range = list_counter(list)
     for a in range(in_range):
         total = list_counter_total(list)
         if total != 1:
             list = more_than_2(list)
-            print("This is more_than_2")
-            print(list)
-            print()
-
             list = more_than_2_complete(list)
-            print("This is more_than_2_complete")
-            print(list)
-            print()
-
             #actual calculation
             op_prioritizer = priority(list)
-            print("This is op_prioritizer")
-
             list = op_selection(list, op_prioritizer)
-            print("This is op_selection")
-            print(list)
-            print()
-
             list = recon_struction(list)
 
     return list[0]
