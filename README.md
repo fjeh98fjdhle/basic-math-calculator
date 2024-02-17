@@ -1,5 +1,5 @@
 # basic-math-calculator
-just testing some math calculations. Goal is to make a very simple to use math calulator with text interface. Feel free to use it and report bugs to make it even better.
+This is a math calculator with a text-interface.(not yet)
 
 # capabilities
 computes a single-variable function with basic mathematical operations "+","-","/","*". 
