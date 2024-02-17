@@ -5,6 +5,9 @@ This is a math calculator with a text-interface.(not yet)
 computes a single-variable function with basic mathematical operations "+","-","/","*". 
 
 # Example capabilities
+function: 1*2+x*3
+give value for x:2
+8.0
 
 
 # Problems
