@@ -5,6 +5,9 @@ This is a math calculator with a text-interface.(not yet)
 computes a single-variable function with basic mathematical operations "+","-","/","*". 
 
 # Example capabilities
+<div align="center">
+<img align="center" src=figs/logo_transparent_background.png width="40%"/>
+</div>
 ![Screenshot 2024-02-17 193355](https://github.com/fjeh98fjdhle/basic-math-calculator/assets/144729384/92851e0a-ccc8-4741-933d-55107dceb834)
 
 
