@@ -6,10 +6,10 @@ computes a single-variable function with basic mathematical operations "+","-","
 
 
 # Goal 
-normal calculator capabilities
-text-interface
-under 1000 lines of code/highly efficient
-youtube guide on the code
+1. normal calculator capabilities
+2. text-interface
+3. under 1000 lines of code/highly efficient
+4. youtube guide on the code
 
 # Example capabilities
 
