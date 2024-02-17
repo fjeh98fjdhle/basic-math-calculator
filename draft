@@ -14,86 +14,111 @@ def cleaning_fx():
         num_store += w #now the equation is rewritten as a string. 
     return num_store 
 
-list = cleaning_fx()
-print(list)
+
+
+
 
 def restoring_func(list):
     list_var = []
     var_index = []
     list = list
-    return_list_and_variables = []
     # restoring in a list with correct dtype.
     num_store = []
     index_count = -1
     for w in list: 
         index_count += 1
-        if w == "*": 
-            num_store.append(w) 
-        elif w == ".": 
-            w = "," #this is necessary to later cast it to a float. "1.5" to a float does not work but 1,5 does.
+        if w == "+":
             num_store.append(w)
-        elif w == ",": 
+        elif w == "*": 
             num_store.append(w)
-        elif w == "+":
+        elif w == "/*": 
             num_store.append(w)
-        elif w == "-":
+        elif w == "-": 
             num_store.append(w)
-        elif w == " ": 
-            w = w 
-        elif w == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 0:
+        elif w == "1":
             num_store.append(float(w))
-
-    #second round where I sort out the ones that strings but not variables.
-    count = -1
-    print(num_store)
-    for w in num_store:
-        count += 1
-        if  isinstance(w, (str)) == True:
-            if w != "*" or "+" or "," or "+" or "-":
-                list_var.append(0) #need to do that. Because otherwise if I call this variable later and it has no value then it will give me an error. So at minimum I need zero value there.
-                list_var.append(w)
-                var_index.append(0)
-                var_index.append(count)
-                print("new variable.")
+        elif w == "2":
+            num_store.append(float(w))
+        elif w == "3":
+            num_store.append(float(w))
+        elif w == "4":
+            num_store.append(float(w))
+        elif w == "5":
+            num_store.append(float(w))
+        elif w == "6":
+            num_store.append(float(w))
+        elif w == "7":
+            num_store.append(float(w))
+        elif w == "8":
+            num_store.append(float(w))
+        elif w == "9":
+            num_store.append(float(w))
+        elif w == "0":
+            num_store.append(float(w))                                       
+        else:
+            num_store.append(w)
+            list_var.append(w)
 
     #return the list together with the list of variables, the list of the indexes.
-    return_list_and_variables.append(num_store)
+    return_list_and_variables = []
+    a = len(num_store)
+    return_list_and_variables.append(a)
+    for w in num_store: 
+        return_list_and_variables.append(w)
     return_list_and_variables.append(list_var)
     
     return return_list_and_variables
 
-list = restoring_func(list)
-print(list)
-
-def restoring_func_2(list):
-    list = list[0]
-    for a in list: 
-        print(a)
 
 
 
 def exchange_x(list): 
-    list = list[0]
-    list_var = list[1]
+    # in the list that I got from above it is not clear when in the list the variables start. that is the "number", the first value from the list. 
+    number = list[0]
+    number = number + 1 #number represents the true lenght of the equation. For applying the "stop" in the list a few lines below we need to add by one because the stop doesn't include the given number. 
+    #to manipulate the initial list we create an initial list.
+    intial_list = list
+    #we take out the number that tells us where the variables start and take out the rest of the appended variables so that we only have the pure equation. 
+    list = list[1:number]
+    print(list)
+    list_var = []
+    for a in intial_list[number:]:
+        print(intial_list[number:])
+        a = a 
+        print(a)
+        for var in a:
+            print(var)
+            list_var.append(var)
+
+    
     print(list_var)
 
-
+    
     map_var_collection = {} # collects the individual values for all the variables and maps them to the value of the input. 
-    for a in list_var:
-        a_value = input("Geben sie den Wert für" + a + "an.") 
-        map_var_collection[a] = a_value
 
+    #value mapping.
+    for a in list_var:
+        a_value = input("Geben sie den Wert für " + a + " an.")
+        name = a 
+        for a in a_value:  
+            a_value = float(a_value)
+        map_var_collection[name] = a_value
+        print(map_var_collection)
+    
+    #value in function adding.
     count_index = -1
     for a in list:
         count_index += 1
         for var in list_var:
             if a == var:
+                print(a)
                 list[count_index] = map_var_collection[a]
 
     return list
 
-list = exchange_x(list)
-print(list)
+
+
+
 
 def more_than_2(list):    
     recon_struction_list = []
@@ -148,6 +173,10 @@ def more_than_2(list):
 
     return recon_struction_list
 
+
+
+
+
 def iterations_needed(list):
     counter_iterations = 0
     counter = -1
@@ -165,12 +194,17 @@ def iterations_needed(list):
 
 
 
+
+
 def more_than_2_complete(list):
     in_range = iterations_needed(list)
     for a in range(in_range): 
         list = more_than_2(list)
     
     return list
+
+
+
 
 
 def priority(list):
@@ -188,6 +222,10 @@ def priority(list):
             op_priority["current_op"] = value_op[a]   
 
     return op_priority["current_op"]
+
+
+
+
 
 
 def op_selection(list,  op_prioritizer): 
@@ -245,6 +283,9 @@ def op_selection(list,  op_prioritizer):
     return [list, store_value[0], store_index_op[0], list_count]
 
 
+
+
+
 def recon_struction(list):
 
     list_new = list[0]
@@ -285,6 +326,9 @@ def recon_struction(list):
     return re_con_list  
 
 
+
+
+#for the number of iterations
 def list_counter(list):
     list = list
     count = 0
@@ -294,6 +338,9 @@ def list_counter(list):
         
     return count
 
+
+
+#for the checking how many numbers there are in total.
 def list_counter_total(list):
     list = list
     count = 0
@@ -301,6 +348,8 @@ def list_counter_total(list):
         count += 1
     
     return count 
+
+
 
 def all():
     #list processing
