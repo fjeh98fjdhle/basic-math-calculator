@@ -14,10 +14,6 @@ def cleaning_fx():
         num_store += w #now the equation is rewritten as a string. 
     return num_store 
 
-
-
-
-
 def restoring_func(list):
     list_var = []
     var_index = []
@@ -69,9 +65,6 @@ def restoring_func(list):
     
     return return_list_and_variables
 
-
-
-
 def exchange_x(list): 
     # in the list that I got from above it is not clear when in the list the variables start. that is the "number", the first value from the list. 
     number = list[0]
@@ -105,10 +98,6 @@ def exchange_x(list):
                 list[count_index] = map_var_collection[a]
 
     return list
-
-
-
-
 
 def more_than_2(list):    
     recon_struction_list = []
@@ -163,10 +152,6 @@ def more_than_2(list):
 
     return recon_struction_list
 
-
-
-
-
 def iterations_needed(list):
     counter_iterations = 0
     counter = -1
@@ -182,20 +167,12 @@ def iterations_needed(list):
 
     return counter_iterations
 
-
-
-
-
 def more_than_2_complete(list):
     in_range = iterations_needed(list)
     for a in range(in_range): 
         list = more_than_2(list)
     
     return list
-
-
-
-
 
 def priority(list):
     list  = list
@@ -212,11 +189,6 @@ def priority(list):
             op_priority["current_op"] = value_op[a]   
 
     return op_priority["current_op"]
-
-
-
-
-
 
 def op_selection(list,  op_prioritizer): 
     value_op ={'**': 3, "*":2, "/":2, "+":1, "-":1}
@@ -272,10 +244,6 @@ def op_selection(list,  op_prioritizer):
                     print("What the fuck is that for an operation?")
     return [list, store_value[0], store_index_op[0], list_count]
 
-
-
-
-
 def recon_struction(list):
 
     list_new = list[0]
@@ -315,9 +283,6 @@ def recon_struction(list):
 
     return re_con_list  
 
-
-
-
 #for the number of iterations
 def list_counter(list):
     list = list
@@ -328,8 +293,6 @@ def list_counter(list):
         
     return count
 
-
-
 #for the checking how many numbers there are in total.
 def list_counter_total(list):
     list = list
@@ -338,7 +301,6 @@ def list_counter_total(list):
         count += 1
     
     return count 
-
 
 
 def all():
