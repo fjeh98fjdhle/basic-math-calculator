@@ -1,6 +1,6 @@
 #entfernen von f(x) = 
 def cleaning_fx():
-    Funktion_f = input("Geben sie bitte die vollständige Funktion an.")
+    Funktion_f = input("function: ")
     Funktion_f = list(Funktion_f)
     for w in Funktion_f:
         if w == "=": 
@@ -16,7 +16,6 @@ def cleaning_fx():
 
 def restoring_func(list):
     list_var = []
-    var_index = []
     list = list
     # restoring in a list with correct dtype.
     num_store = []
@@ -27,7 +26,7 @@ def restoring_func(list):
             num_store.append(w)
         elif w == "*": 
             num_store.append(w)
-        elif w == "/*": 
+        elif w == "/": 
             num_store.append(w)
         elif w == "-": 
             num_store.append(w)
@@ -83,10 +82,10 @@ def exchange_x(list):
 
     #value mapping.
     for a in list_var:
-        a_value = input("Geben sie den Wert für " + a + " an.")
+        a_value = input("give value for " + a +":")
         name = a 
-        for a in a_value:  
-            a_value = float(a_value)
+        for a in a_value:
+            a_value = float(a_value)  
         map_var_collection[name] = a_value
     
     #value in function adding.
@@ -99,58 +98,54 @@ def exchange_x(list):
 
     return list
 
-def more_than_2(list):    
+def more_than_2_new(list): 
     recon_struction_list = []
+    rest_list = []
     initial_list = list
-    count = -1
+    index_a = -1
     count_total = -1
     for a in list: 
-        count_total +=1 
+        count_total += 1
     for a in list: 
-        count += 1 
-        if count != count_total:
-            if isinstance(list[count], (float, int)) == True:
-                if isinstance(list[count +1], (float, int)) == True:
-                    new_num = str(int(list[count])) + str(int(list[count +1]))
+        index_a += 1 
+        if index_a != count_total:
+            if isinstance(list[index_a], (float, int)) == True:
+                if isinstance(list[index_a +1], (float, int)) == True:
+                    new_num = str(int(list[index_a])) + str(int(list[index_a +1]))
                     new_num = float(new_num)
                     #reconstruction 
-                    for a in list[:count]:
+                    for a in list[:index_a]:
                         recon_struction_list.append(a)
                     recon_struction_list.append(new_num)
-                    if count+2 < count_total:
-                        for a in list[count+2:]:
+                    if index_a+2 <= count_total: #if 2 numbers from now on there is another value in the list, then append everything from there on in the list. 
+                        for a in list[index_a+2:]:
                             recon_struction_list.append(a)
-            elif list[count] == "*":
-                if list[count +1] == "*":
-                    new_op = list[count] + list[count +1]
-                    for a in list[:count]:
+            elif list[index_a] == "*":
+                if list[index_a +1] == "*":
+                    new_op = list[index_a] + list[index_a +1]
+                    for a in list[:index_a]:
                         recon_struction_list.append(a)
                     recon_struction_list.append(new_op)
-                    if count+2 <= count_total:
-                        for a in list[count+2:]:
+                    if index_a+2 <= count_total:
+                        for a in list[index_a+2:]:
                             recon_struction_list.append(a)
-            elif list[count] == ",":
-                if isinstance(list[count +1], (float, int)) == True:
-                    num_before = list[count -1]
+            elif list[index_a] == ",":
+                if isinstance(list[index_a +1], (float, int)) == True:
+                    num_before = list[index_a -1]
                     comma = "."
-                    num_after = list[count +1]
+                    num_after = list[index_a +1]
                     new_num = str(int(num_before)) + comma + str(int(num_after))
                     new_num = float(new_num)
-                    for a in list[:count -1]:
+                    for a in list[:index_a -1]:
                         recon_struction_list.append(a)
                     recon_struction_list.append(new_num)
-                    if count+2 <= count_total:
-                        for a in list[count+2:]:
+                    if index_a+2 <= count_total:
+                        for a in list[index_a+2:]:
                             recon_struction_list.append(a)
 
-        
-    list_count = 0     
-    for a in recon_struction_list: 
-        list_count += 1
-    if list_count == 0:
-        recon_struction_list = initial_list
+        if len(recon_struction_list) != 0:
+            return recon_struction_list
 
-    return recon_struction_list
 
 def iterations_needed(list):
     counter_iterations = 0
@@ -169,11 +164,12 @@ def iterations_needed(list):
 
 def more_than_2_complete(list):
     in_range = iterations_needed(list)
-    for a in range(in_range): 
-        list = more_than_2(list)
-    
-    return list
+    for a in range(in_range):
+        list = more_than_2_new(list)
 
+    return list 
+
+#calculation
 def priority(list):
     list  = list
     count_op = 0
@@ -293,15 +289,6 @@ def list_counter(list):
         
     return count
 
-#for the checking how many numbers there are in total.
-def list_counter_total(list):
-    list = list
-    count = 0
-    for a in list: 
-        count += 1
-    
-    return count 
-
 
 def all():
     #list processing
@@ -310,9 +297,8 @@ def all():
     list = exchange_x(list)
     in_range = list_counter(list)
     for a in range(in_range):
-        total = list_counter_total(list)
+        total = len(list)
         if total != 1:
-            list = more_than_2(list)
             list = more_than_2_complete(list)
             #actual calculation
             op_prioritizer = priority(list)
@@ -320,7 +306,6 @@ def all():
             list = recon_struction(list)
 
     return list[0]
-        
 
 a = all()
 print(a)
