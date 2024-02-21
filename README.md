@@ -2,7 +2,7 @@
 Math calculator in python. Math calculator with a text-interface.(not yet). If you get an error with some type of calculation, please issue it and I will fix it. 
 
 # capabilities
-computes a single-variable function with basic mathematical operations "+","-","/","*". 
+computes a function on given inputs.
 
 # Example capabilities
 ![Screenshot 2024-02-17 193355](https://github.com/fjeh98fjdhle/basic-math-calculator/assets/144729384/92851e0a-ccc8-4741-933d-55107dceb834)
