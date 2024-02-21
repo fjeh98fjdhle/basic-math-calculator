@@ -1,5 +1,5 @@
 # basic-math-calculator
-Math calculator in python. Math calculator with a text-interface.(not yet). If you get an error with some type of calculation, please issue it and I will fix it. 
+Math calculator in python. Math calculator with a text-interface.(not yet).To use it you just have copy the calculate_function code and run it. 
 
 # capabilities
 computes a function on given inputs.
