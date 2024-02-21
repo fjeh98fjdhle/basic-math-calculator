@@ -1,5 +1,5 @@
 # basic-math-calculator
-This is a math calculator with a text-interface.(not yet)
+This is a math calculator with a text-interface.(not yet) If you get an error with some type of calculation, please issue it and I will fix it. 
 
 # capabilities
 computes a single-variable function with basic mathematical operations "+","-","/","*". 
