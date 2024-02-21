@@ -1,35 +1,35 @@
- def list_encoding(a): 
+def list_encoding(a): # writes an equation as a list.  
     a = str(a)
     list = []
     for w in a: 
-        if a == "1":
+        if w == "1":
             w = float(w)
             list.append(w)
-        elif a == "2":
+        elif w == "2":
             w = float(w)
             list.append(w)
-        elif a == "3":
+        elif w == "3":
             w = float(w)
             list.append(w)
-        elif a == "4":
+        elif w == "4":
             w = float(w)
             list.append(w)
-        elif a == "5":
+        elif w == "5":
             w = float(w)
             list.append(w)
-        elif a == "6":
+        elif w == "6":
             w = float(w)
             list.append(w)
-        elif a == "7":
+        elif w == "7":
             w = float(w)
             list.append(w)
-        elif a == "8":
+        elif w == "8":
             w = float(w)
             list.append(w)
-        elif a == "9":
+        elif w == "9":
             w = float(w)
             list.append(w)
-        elif a == "0":
+        elif w == "0":
             w = float(w)
             list.append(w)
         else: 
@@ -38,11 +38,12 @@
     return list 
 
 
-def more_than_2_new(list): 
+def more_than_2_new(list):  # 
+    return_list = ["this is a mistake. Your functions has become nonexistent."]
     recon_struction_list = []
-    initial_list = list
     index_a = -1
     count_total = -1
+    count = 0 
     for a in list: 
         count_total += 1
     for a in list: 
@@ -50,6 +51,7 @@ def more_than_2_new(list):
         if index_a != count_total:
             if isinstance(list[index_a], (float, int)) == True:
                 if isinstance(list[index_a +1], (float, int)) == True:
+                    count += 1 # counts the operations performed. I did this to eliminate the iterations_needed completely. Becuase eveytime there is a change in the list there one iteration needed. 
                     new_num = str(int(list[index_a])) + str(int(list[index_a +1]))
                     new_num = float(new_num)
                     #reconstruction 
@@ -61,6 +63,7 @@ def more_than_2_new(list):
                             recon_struction_list.append(a)
             elif list[index_a] == "*":
                 if list[index_a +1] == "*":
+                    count += 1
                     new_op = list[index_a] + list[index_a +1]
                     for a in list[:index_a]:
                         recon_struction_list.append(a)
@@ -70,6 +73,7 @@ def more_than_2_new(list):
                             recon_struction_list.append(a)
             elif list[index_a] == ",":
                 if isinstance(list[index_a +1], (float, int)) == True:
+                    count += 1
                     num_before = list[index_a -1]
                     comma = "."
                     num_after = list[index_a +1]
@@ -82,10 +86,12 @@ def more_than_2_new(list):
                         for a in list[index_a+2:]:
                             recon_struction_list.append(a)
 
-        if len(recon_struction_list) != 0:
+        if len(recon_struction_list) != 0: # this is key. Because as long as the list is not none-existent it will return it. 
             return recon_struction_list
-
-
+    
+    return return_list
+    
+        
 def iterations_needed(list):
     counter_iterations = 0
     counter = -1
@@ -98,6 +104,8 @@ def iterations_needed(list):
             if isinstance(list[counter], (int, float)):
                 if isinstance(list[counter+1], (int, float)):
                     counter_iterations += 1
+            elif a == ",":
+                counter_iterations += 1
 
     return counter_iterations
 
@@ -107,6 +115,8 @@ def more_than_2_complete(list):
         list = more_than_2_new(list)
 
     return list 
+
+
 
 #calculation
 def priority(list):
@@ -218,9 +228,12 @@ def recon_struction(list):
 
     return re_con_list  
 
+
+
 #for the number of iterations
 def list_counter(list):
     list = list
+    list = more_than_2_complete(list)
     count = 0
     for a in list:
         if isinstance(a, (str)):
@@ -228,9 +241,9 @@ def list_counter(list):
         
     return count
 
+
 def calculate(list):
     in_range = list_counter(list)
-    print(list)
     if in_range == 0: 
         return list 
     else:
@@ -242,8 +255,12 @@ def calculate(list):
                 op_prioritizer = priority(list)
                 list = op_selection(list, op_prioritizer)
                 list = recon_struction(list)
+                
 
     return list[0]
+
+
+
 
 
 
@@ -281,6 +298,10 @@ def restoring_func(list):
             num_store.append(w)
         elif w == "-": 
             num_store.append(w)
+        elif w == ",":
+            num_store.append(w)
+        elif w == ".":
+            num_store.append(",")
         elif w == "1":
             num_store.append(float(w))
         elif w == "2":
@@ -333,13 +354,19 @@ def exchange_x(list):
 
     #value mapping.
     for a in list_var:
+        print(a)
         a_value = input("give value for " + a +":")
+        print("This is value a")
+        print(a_value)
         name = a 
         a_value = list_encoding(a_value)
-        a_value = calculate(a_value)
+        print("This is value a")
+        print(a_value)
+        a_value = more_than_2_complete(a_value)
+        a_value = a_value[0]
         map_var_collection[name] = a_value
     
-    #value in function adding.
+    #value adding to the function. 
     count_index = -1
     for a in list:
         count_index += 1
@@ -348,7 +375,6 @@ def exchange_x(list):
                 list[count_index] = map_var_collection[a]
 
     return list
-
 
 
 def collect_func():
@@ -363,9 +389,7 @@ def collect_func():
 
 def start():
     list = collect_func()
-    print(list)
     list = calculate(list)
-    print(list)
 
     return list
 
