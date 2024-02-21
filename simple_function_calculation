@@ -354,14 +354,9 @@ def exchange_x(list):
 
     #value mapping.
     for a in list_var:
-        print(a)
         a_value = input("give value for " + a +":")
-        print("This is value a")
-        print(a_value)
         name = a 
         a_value = list_encoding(a_value)
-        print("This is value a")
-        print(a_value)
         a_value = more_than_2_complete(a_value)
         a_value = a_value[0]
         map_var_collection[name] = a_value
@@ -380,11 +375,8 @@ def exchange_x(list):
 def collect_func():
     #list processing
     list = cleaning_fx()
-    print(list)
     list = restoring_func(list)
-    print(list)
     list = exchange_x(list)
-    print(list)
     return list 
 
 def start():
