@@ -3,7 +3,7 @@ Math calculator in python. Math calculator with a text-interface.(not yet).To us
 
 # Syntax
 -leave no spaces. 
--variables can not stand alone without an operator. Example( what not to do: 2y+3*2; what to do: 2*y+3*2
+-variables can not stand alone without an operator. Example( what not to do: 2y+3*2; what to do: 2*y+3*2)
 
 # capabilities
 computes a function on given inputs.
