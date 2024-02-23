@@ -357,13 +357,35 @@ def exchange_x(list):
     map_var_collection = {} # collects the individual values for all the variables and maps them to the value of the input. 
 
     #value mapping.
+
+    #maps the values of the variables to undone. So by default they are undone. 
+    var_map = {}
+    list_checked = []
+    list_checked.append("value_iniatilization") # the value is added so that the loop is started in the first place. Otherwise the "for var in list_checked" 
+    #value is going to be non-existent so the loop is never going to be initialized since it will not work on either the if nor the elif statement 
     for a in list_var:
-        a_value = input("give value for " + a +":")
-        name = a 
-        a_value = list_encoding(a_value)
-        a_value = more_than_2_complete(a_value)
-        a_value = a_value[0]
-        map_var_collection[name] = a_value
+        for var in list_checked:
+            #if a is a value that has already been checked of then it will do nothing.  
+            if a == var: 
+                var = "Test"
+            #Otherwise, if a is not a value that has not yet been checked off then it will map it to "undone"
+            elif a != var:
+                var_map[a] = "undone"
+                list_checked.append(a)
+
+    #basically first I create a mapper that maps wether a variable(by the name) is done or undone. This is nice so that I don't map a value twice. This is done through assigning a value to the function
+    #and once that value is assigned you write it off. then you create another if statement where you basically say that if the mapping is "done" of that variable then there will be no value mapping to that variable. 
+    for a in list_var: 
+        if var_map[a] == "done": 
+            var = a
+        elif var_map[a] == "undone":
+            a_value = input("give value for " + a +":")
+            name = a 
+            a_value = list_encoding(a_value)
+            a_value = more_than_2_complete(a_value)
+            a_value = a_value[0]
+            map_var_collection[name] = a_value
+            var_map[a] = "done"
     
     #value adding to the function. 
     count_index = -1
