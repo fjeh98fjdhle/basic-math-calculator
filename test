@@ -1,0 +1,11 @@
+class function: 
+    def __init__(self, equation, status='', key_var=''): 
+        self.equation = equation
+        self.status = status
+        self.key_var = key_var 
+
+    def Summenregel(self):
+        # rebuilds the list in a seperate list
+        self_list = []
+        for a in self.equation: 
+            self_list.append(a)
