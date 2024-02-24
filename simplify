@@ -1,0 +1,7 @@
+from Funktion_berechnen import calculate
+
+list = [3, "*", 4, "+", 3, "*", 2]
+a = calculate(list)
+print(a)
+
+vereinfachte_liste = [3, "*"]
