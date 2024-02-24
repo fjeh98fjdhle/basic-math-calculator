@@ -1,0 +1,47 @@
+class number: 
+    def __init__(self, value, placeholder): 
+        self.value = value 
+        self.placeholder = placeholder
+
+class function: 
+    def __init__(self, equation): 
+        self.equation = equation
+
+    def Summenregel(self):
+        # rebuilds the list in a seperate list
+        self_list = []
+        for a in self.equation: 
+            self_list.append(a)
+
+        print(self_list)
+
+        index_zähler = -1 
+        part_list = []
+        total_list = []
+        for a in self_list:
+            index_zähler += 1
+            if a == "+":
+                for a in self_list[:index_zähler]:
+                    part_list.append(a)
+                total_list.append(part_list)
+                part_list = []
+                total_list.append("+")
+                for a in self_list[index_zähler + 1:]:
+                    part_list.append(a)
+                total_list.append(part_list)
+
+        self.equation = total_list
+        return self
+    
+    def faktorenregel(self): 
+        self_list = []
+        for a in self.equation: 
+            self_list.append(a)
+        
+        processed = False
+        
+        for a in self_list: 
+            if type(a) == list: 
+                processed == True
+
+        return self_list
