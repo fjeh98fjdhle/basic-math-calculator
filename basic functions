@@ -1,0 +1,80 @@
+def copy_list(list): 
+    seperate_list = []
+    for a in list: 
+        seperate_list.append(a)
+    
+    return seperate_list
+
+#finds the key variable. so that every other variable is a constant.
+# test : list = ['f', '(', 'z', ')', '=', '1', '*', 'x', '+', '1', '2', '3']
+def find_the_key_var(list): 
+    map_one_var = {}
+    count = -1
+    for a in list:
+        count += 1 
+        if a == "f": 
+            map_one_var[a] = count
+        if a == "(": 
+            map_one_var[a] = count
+        if a == ")": 
+            map_one_var[a] = count
+
+    if map_one_var["f"] == map_one_var["("] -1: 
+        if map_one_var["f"] == map_one_var[")"] -3: 
+            key_variable = list[map_one_var[")"] -1]
+
+    return key_variable
+
+
+#writes out all the equations of the functions objects in a given list # example:[<__main__.function object at 0x000002AF70BB1F50>, <__main__.function object at 0x000002AF70BB1F90>, <__main__.function object at 0x000002AF70BB1FD0>, <__main__.function object at 0x000002AF70BB2390>, <__main__.function object at 0x000002AF70BB23D0>, <__main__.function object at 0x000002AF70BB2450>, <__main__.function object at 0x000002AF70BB2490>] 
+def func_to_list(function):
+    re_build_list = []
+    for a in function: 
+        re_build_list.append(a.equation)
+    return re_build_list
+
+#encodes a list into a function
+def list_to_functions(list):
+    #f(x)= 1*x+12*x+3*y**2+27*c 
+    #ideal_list = [[1, "*","x"],["+"],[12, "*", "x"],["+"],[3, "*", "y", "**", 2], ["+"], [27, "*", "c"]]
+    rebuild_list = []
+    for a in list: 
+        func = function(a)
+        rebuild_list.append(func)
+    
+    return rebuild_list
+
+class function: 
+    def __init__(self, equation, status='', key_var=''): 
+        self.equation = equation
+        self.status = status
+        self.key_var = key_var 
+
+    def Summenregel(self):
+        # rebuilds the list in a seperate list
+        self_list = []
+        for a in self.equation: 
+            self_list.append(a)
+
+#Takes each of the individual mini-equation in the list and looks marks them as constant or not by comparing them to the key variable. The only execption is when the mini-equation is purely a "+". Gives back a list of function objects, where the attribute ".equation" represents the initial equation and ".status" wether it is constant or not.
+def func_status(equation, key_var):
+    # example : equation = [[1, "*","x"],["+"],[12, "*", "x"],["+"],[3, "*", "y", "**", 2], ["+"], [27, "*", "c"]]
+    # key_var = "c"
+    equation_func = []
+    for a in equation:
+        #by default all the functions will be marked as unconstant. 
+        func_a = function(a)
+        func_a.status = "not constant"
+        equation_func.append(func_a)
+        # a == miniequation; example: [1, '*', 'x']
+        for b in a:
+            if func_a.status == "not constant":
+                if b == key_var: 
+                    func_a.status = "constant"
+                elif b == "+":
+                    func_a.status = "addition"
+                else: 
+                    b = b
+            elif func_a.status == "constant":
+                b = b
+    return equation_func
