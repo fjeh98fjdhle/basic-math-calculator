@@ -1,0 +1,137 @@
+list= [1.0, '*',"(", 1.0, '+', 12.0,"*",2.0 ,")"]
+def closest_bracket(list):
+    count_index = []
+    index = -1  
+    for a in list: 
+        index += 1
+        if a == ")": 
+            count_index.append(index) # list of the indexes of the list. 
+    count_index = sorted(count_index)
+    closest_bracket = count_index[0]
+
+    return closest_bracket
+
+
+def count_of_total_index(list): 
+    count_total_index = -1
+    for a in list: 
+        count_total_index += 1
+    
+    return count_total_index
+
+def priority(list):
+    list  = list
+    count_op = 0
+    value_op ={'(':4, '**': 3, "*":2, "/":2, "+":1, "-":1 ,")": 0}
+    op_priority = {"current_op": 0}
+    list_op = []
+    for a in list:
+        if isinstance(a, (str)) == True:
+            list_op.append(a)
+    for a in list_op: 
+        count_op += 1
+        if value_op[a] > op_priority["current_op"]:
+            op_priority["current_op"] = value_op[a]   
+
+    return op_priority["current_op"]
+
+def op_selection(list): 
+    print(list)
+    op_prioritizer = priority(list)
+    value_op ={'(':4, '**': 3, "*":2, "/":2, "+":1, "-":1 ,")": 0}
+    count_total = count_of_total_index(list) # total index_count.
+    store_value = []  
+    store_index_op = []
+
+
+    index_count = -1
+    for a in list:
+        index_count += 1 # index of each value in list.
+        if isinstance(a,(str)) == True: #these 2 if basically assure that (1) it is an operator/string and (2) that the value mapped to the operator is the op_prioritize/the highest priority operator. 
+            if value_op[a] == op_prioritizer: # If this is the case, then one performs the operation with the value indexd before and after it. 
+                if a == "(": # I need to check for priororization within the brackets. To do that I need to go to the end of the brackets and apply priorization again. 
+                    cb = closest_bracket(list) 
+                    bracket_count = 0
+                    prioritizer = priority(list[index_count +1:cb])
+                    for var in list[index_count +1 :cb]: 
+                        bracket_count += 1
+                        if isinstance(var,(str)) == True:
+                            if value_op[var] == prioritizer: 
+                                if list[index_count + bracket_count] == "+":
+                                    num_before = list[index_count+bracket_count -1]
+                                    num_after = list[index_count+bracket_count + 1]
+                                    num_total = num_before + num_after
+                                    store_value.append(num_total)
+                                    store_index_op.append(index_count + bracket_count)
+
+                                elif list[index_count + bracket_count] == "*":
+                                    num_before = list[index_count+bracket_count -1]
+                                    num_after = list[index_count+bracket_count+ 1]
+                                    num_total = num_before * num_after
+                                    store_value.append(num_total)
+                                    store_index_op.append(index_count + bracket_count)
+
+                                elif list[index_count + bracket_count] == "/":
+                                    num_before = list[index_count+bracket_count -1]
+                                    num_after = list[index_count+bracket_count + 1]
+                                    num_total = num_before / num_after
+                                    store_value.append(num_total)
+                                    store_index_op.append(index_count + bracket_count)
+
+                                elif list[index_count + bracket_count] == "-":
+                                    num_before = list[index_count+bracket_count-1]
+                                    num_after = list[index_count+bracket_count+1]
+                                    num_total = num_before - num_after
+                                    store_value.append(num_total)
+                                    store_index_op.append(index_count + bracket_count)
+
+                                elif list[index_count + bracket_count] == "**":
+                                    num_before = list[index_count+bracket_count-1]
+                                    num_after = list[index_count+bracket_count+1]
+                                    num_total = num_before ** num_after
+                                    store_value.append(num_total)
+                                    store_index_op.append(index_count + bracket_count)
+
+                                else:
+                                    print("What the fuck is that for an operation?")
+                else: 
+                    if list[index_count] == "+":
+                        num_before = list[index_count-1]
+                        num_after = list[index_count+1]
+                        num_total = num_before + num_after
+                        store_value.append(num_total)
+                        store_index_op.append(index_count)
+                    elif list[index_count] == "*":
+                        num_before = list[index_count-1]
+                        num_after = list[index_count+1]
+                        num_total = num_before * num_after
+                        store_value.append(num_total)
+                        store_index_op.append(index_count)
+                    elif list[index_count] == "/":
+                        num_before = list[index_count-1]
+                        num_after = list[index_count+1]
+                        num_total = num_before / num_after
+                        store_value.append(num_total)
+                        store_index_op.append(index_count)
+                    elif list[index_count] == "-":
+                        num_before = list[index_count-1]
+                        num_after = list[index_count+1]
+                        num_total = num_before - num_after
+                        store_value.append(num_total)
+                        store_index_op.append(index_count)
+                    elif list[index_count] == "**":
+                        num_before = list[index_count-1]
+                        num_after = list[index_count+1]
+                        num_total = num_before ** num_after
+                        store_value.append(num_total)
+                        store_index_op.append(index_count)
+                    elif list[index_count] == ")": 
+                        a = a
+
+    return [list, store_value[0], store_index_op[0], count_total]
+
+
+
+
+a = op_selection(list, )
+print(a)
