@@ -5,6 +5,11 @@ def copy_list(list):
     
     return seperate_list
 
+def count_of_total_index(list): 
+    count_total_index = len(list) - 1
+    
+    return count_total_index
+
 #finds the key variable. so that every other variable is a constant.
 # test : list = ['f', '(', 'z', ')', '=', '1', '*', 'x', '+', '1', '2', '3']
 def find_the_key_var(list): 
@@ -45,10 +50,12 @@ def list_to_functions(list):
     return rebuild_list
 
 class function: 
-    def __init__(self, equation, status='', key_var=''): 
+    def __init__(self, equation, status='', key_var='', name=''): 
         self.equation = equation
         self.status = status
         self.key_var = key_var 
+        self.name = name
+
 
     def Summenregel(self):
         # rebuilds the list in a seperate list
