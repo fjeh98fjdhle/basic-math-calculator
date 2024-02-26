@@ -37,6 +37,10 @@ def restoring_func(list):
             num_store.append(w)
         elif w == ",":
             num_store.append(w)
+        elif w == "(": 
+            num_store.append(w)
+        elif w == ")":
+            num_store.append(w)
         elif w == ".":
             num_store.append(",")
         elif w == "1":
