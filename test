@@ -22,6 +22,7 @@ def index_plus_finder(list):
     return index_plus
 
 
+
 # this returns if there is a paranthesis inbetween a given space in a list
 def check_for_paranthesis(index_1st, index_2nd, initial_equation): 
     parenthesis = False
@@ -45,17 +46,49 @@ def check_for_paranthesis(index_1st, index_2nd, initial_equation):
     if parenthesis_parts[0] != parenthesis_parts[1]:
         parenthesis = True
 
-
     return parenthesis      
+
+
+def true(initial_equation): 
+    lena = len(initial_equation) + 1
+    list_x = []
+    list_x.append(0)
+    kon = index_plus_finder(initial_equation)
+    for a in kon: 
+        list_x.append(a)
+    list_x.append(lena)
+
+    list_paranthesis =[]
+    true_map = {}
+
+    count = -1
+    for a in list_x: 
+        count += 1
+        if count +1 < len(list_x): 
+            a = check_for_paranthesis(list_x[count], list_x[count+1], initial_equation)
+            list_paranthesis.append(a)
+
+    print("list_x")
+    print(list_x)
+
+
+    count = -1
+    for a in list_paranthesis:
+        count +=1
+        x = list_x[count] 
+        true_map[x] = a
+    
+    return true_map
+
+b = true(initial_equation)   
+print(b)   
+        
+
 
 
 def keine_Anwendung(initial_equation, Ableitungsregel):
     print("Die" + str(Ableitungsregel) + "hat keinen Anwendungsbedarf.")
     return initial_equation
-
-
-
-
 
 
 
@@ -139,4 +172,3 @@ def containerized_function(right_intervalls, initial_equation):
 
 a = containerized_function(a, initial_equation)
 print(a)
-    
