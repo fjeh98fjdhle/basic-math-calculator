@@ -1,8 +1,14 @@
-def true_map__true_map_2__false_map__list_map(true_map):
-    true_map = {(0, 1): False, (2, 7): True, (7, 12): True, (12, 19): True, (19, 22): False}
-    true_map_2 = {}
-    false_map = {}
+from test import check_for_paranthesis
+initial_equation = [1, "+", 3, "*","(", "x", "+", 12,")", "*", "x", "+", 3,")", "*", "y", "**", 2,"+", 27, "*", "c"]
+true_map = {0: False, 2: True, 7: True, 12: True, 19: False}
+
+def ttfl_map(true_map):
+    true_map = true_map # we map + indexes to the corresponding boolean values
+    true_map_2 = {} # we map 1 to 5 to the corresponding + indexes.
+    false_map = {} # we map 1 to 5 to the correspoding boolean values.
+    total_list = []
     count = 0
+    total_list.append(true_map)
     for a in true_map:
         count += 1 
         value = true_map[a]
@@ -10,120 +16,93 @@ def true_map__true_map_2__false_map__list_map(true_map):
         false_map[count] = a
         #   1: (0, 1)  false_map
     count = 0
+    total_list.append(false_map)
+
     for a in true_map: 
         count += 1
         value = true_map[a]
         true_map_2[count] = value
+    total_list.append(true_map_2)
         #   1: False  
-    list_map = []
-    for a in true_map_2: 
-        list_map.append(a)
+
+    return total_list
 
 
 
-#print(true_map_2) # we map 1 to 5 to the correspoding boolean values.
-#print(false_map) # we map 1 to 5 to the corresponding + indexes.
-#print(true_map) # we map + indexes to the corresponding boolean values
-
-test_true_map_2 = {1:True,2: True, 3: True}
-test_false_map_2 = {1:(0, 1),2: (2, 7), 3: (7, 12)}
-test_map = {1:"h", 2:"a" , 3:"a", 4:"l", 5:"b", 6:"b", 7:"e" }
-count = 2
-
-
-
-
-def chek(test): 
-    new_test = {}
-    list_test = []
-    new_list_test = []
-    value_count =[]
-    break_count = 0
-
-
-    count = 0
-    for a in test:
-        print(len(test))
+#test_map = {1:"h", 2:"a" , 3:"a", 4:"l", 5:"b", 6:"b", 7:"e" }
+#we have 2 dictionary's that are important. For one we have the dictionary that pairs the key counts from 1 to x wiht the corresponding boolean value. The second dictionary maps the same counts but the actual values fo the x-indexes. 
+def chek(true_map): 
+    a = ttfl_map(true_map)
+    compute = a[1] #maps count to boolean values
+    checker = a[2] #maps count to x-indexes
+    map_values = {}
+    list = []
+    for a in checker: 
+        list.append(a)
+    
+    
+    count = 0 
+    for a in checker: 
         count += 1
-        print(count)
-        if count < len(test):
-            if len(list_test)!= len(test):
-                for a in test: 
-                    list_test.append(a)
-                    print(list_test)
-            if test[count] == test[count +1]: 
-                value_count.append(count)
-                print(value_count)
-                neu = test[count] + test[count +1]
-                print(neu)
-                #reconstruction_before
-                new_count = value_count[0] -1
-                print(new_count)
+        if count < len(checker):
+            if checker[count] == checker[count +1]: 
+                var = compute[count] + compute[count +1]
+                #reconstruction before. 
+                for a in list[:count]: 
+                    map_values[a] = compute[a]
+                map_values[count] = var
+                for a in list[count+1:]: 
+                    map_values[a] = compute[a]
+                break
+    return map_values
 
-                for a in list_test[:new_count]:
-                    new_list_test.append(a)
-                for new_var in new_list_test:
-                    new_test[new_var] = test[new_var]
-                print("new_test")
-                print(new_test)
+#looks through an dictionary and counts for when sequential ones have the same value. 
+def repetitions_count(test_map): 
+    list_1 = []
+    list_2 = []
+    for a in test_map: 
+        list_1.append(a)
+    
+    #a list full of the values(list_2)
+    for a in list_1: 
+        b = test_map[a]
+        list_2.append(b)
 
-                new_number = new_list_test[-1]
-                new_number += 1
-                new_test[new_number] = neu
+    repetition_score = 0
+    count = 0 
+    for a in list_2: 
+        count += 1
+        if count +1 < len(list_2) :
+            if list_2[count] == list_2[count + 1]:
+                repetition_score += 1
+    
+    return repetition_score
 
-                new_list_test.clear()
-                #reconstruction_after
-                for a in list_test[new_count + 2:]:
-                    new_list_test.append(a)
-                for new_var in new_list_test: 
-                    new_test[new_var] = test[new_var]
-                value_count.clear()
-                break_count += 1
-                if break_count == 1: 
-                    break
+def normalize_keys(test_map):
+    list = [] 
+    normalized_keys = {}
+
+    for a in test_map: 
+        b = test_map[a]
+        list.append(b)
+    
+    count = 0
+    for a in list:
+        count += 1
+        normalized_keys[count] = a
+
+    return normalized_keys
+ 
+
+def again(test_map): 
+    rep = repetitions_count(test_map)
+    for a in range(rep):
+        test_map = chek(test_map)
+        test_map = normalize_keys(test_map)
+        print(test_map)
         
-    
-    return new_test
 
+    return test_map
 
-def again(test):
-    for n in range(len(test)):
-        test = chek(test)
-        test = chek(test)
-
-    return test 
-    
-a = again(test_map)
+a = again(true_map)
 print(a)
-
-
-
-#this function takes in a mapping and if the two mapped values are both True(meaning if both paranthesis) then it will add them together so that you get the 1st value of the tuple of the first mapping and the second value of the second mapping.
-def false_or_right(true_map_2,false_map, count): 
-    a = len(true_map_2)-count +1 
-    stationary_list = []
-    real_list =[]
-    fake_list = []
-    for x in range(a):
-        if true_map_2[count] == true_map_2[count +1]:
-            tuple_1 = false_map[count]
-            tuple_2 = false_map[count +1]
-            for a in tuple_1:
-                fake_list.append(a)
-            stationary_list.append(fake_list[:1])
-            fake_list.clear()
-            for a in tuple_2:
-                fake_list.append(a)
-            stationary_list.append(fake_list[1:]) 
-            fake_list.clear()
-
-            for a in stationary_list: 
-                for num in a:
-                    real_list.append(num)
-            
-            print(real_list)
-
-
-
-
-    return stationary_list
