@@ -1,6 +1,9 @@
-from basis_functions import list_to_functions
 from basis_functions import function
 from basis_functions import count_of_total_index
+from basis_functions import list_to_functions
+from test4_assistant import ttj
+from test4_assistant import true_marked
+
 
 equation = [[1, "*","x"],["+"],[12, "*", "x"],["+"],[3, "*", "y", "**", 2], ["+"], [27, "*", "c"]]
 
@@ -23,7 +26,7 @@ def index_plus_finder(list):
 
 
 
-# this returns if there is a paranthesis inbetween a given space in a list
+# this returns if there is a paranthesis inbetween a given space for the x's in a list
 def check_for_paranthesis(index_1st, index_2nd, initial_equation): 
     parenthesis = False
     parenthesis_parts = []
@@ -68,9 +71,6 @@ def true(initial_equation):
             a = check_for_paranthesis(list_x[count], list_x[count+1], initial_equation)
             list_paranthesis.append(a)
 
-    print("list_x")
-    print(list_x)
-
 
     count = -1
     for a in list_paranthesis:
@@ -79,37 +79,40 @@ def true(initial_equation):
         true_map[x] = a
     
     return true_map
-
-b = true(initial_equation)   
-print(b)   
+  
         
 
-
-
-def keine_Anwendung(initial_equation, Ableitungsregel):
-    print("Die" + str(Ableitungsregel) + "hat keinen Anwendungsbedarf.")
-    return initial_equation
-
-
-
-
+# finds the right intervalls for the application of the sum rule.
 def finding_the_right_intervalls(initial_equation):
-    print(initial_equation)
     index_plus = index_plus_finder(initial_equation)
-    print(index_plus)
+    value_list = {}
     list = []
     true_map = {}
+    local_true_marked ={}
+
+    #by default all the true's in the initial_equation are undone.
+    for a in index_plus:
+        local_true_marked[a] = "undone"
 
     total_count_of_equation = count_of_total_index(initial_equation)   
     in_range = len(index_plus)
 
     func_1st_paranthesis = check_for_paranthesis(0, index_plus[0] -1, initial_equation)
     if func_1st_paranthesis == False: 
+        value_list[0] = func_1st_paranthesis
         list.append(0)
         list.append(index_plus[0]-1)
-        print()
-        true_map[(0, index_plus[0]-1)] = False
-        
+    elif func_1st_paranthesis == True: 
+        ttj_var = ttj(index_plus, total_count_of_equation, index_plus)
+        value_1 = ttj_var[0]
+        list.append(value_1)
+        value_2 = ttj_var[1]
+        list.append(value_2)
+        count_finished_x = ttj_var[2]
+        int_true_marked = true_marked(count, count_finished_x, index_plus)
+        for a in int_true_marked: 
+            local_true_marked[a] = "done"
+
     count = -1
     initial_equation.append("+")
     index_plus.append(total_count_of_equation + 1)
@@ -118,19 +121,43 @@ def finding_the_right_intervalls(initial_equation):
             count += 1 
             if count < in_range-1:
                 paranthesis = check_for_paranthesis(index_plus[count], index_plus[count+1] - 1, initial_equation)
+                value_list[count] = paranthesis
                 if paranthesis == False: 
                     list.append(index_plus[count]) # adjusted start and stop value, not real start and stop values. Difference is that you use the adjusted start and stop value to call a section in a list so that you do not get the "+" sign as well. It is not the real index of where "+" sign lies.
                     list.append(index_plus[count+1]-1)
+                elif paranthesis == True:
+                    temp = index_plus[count]
+                    if local_true_marked[temp] == "undone":
+                        ttj_var = ttj(index_plus, count, initial_equation)
+                        value_1 = ttj_var[0]
+                        list.append(value_1)
+                        value_2 = ttj_var[1]
+                        list.append(value_2)
+                        count_finished_x = ttj_var[2]
+                        int_true_marked = true_marked(count, count_finished_x, index_plus)
+                        for a in int_true_marked: 
+                            local_true_marked[a] = "done"
             elif count == in_range-1: 
                 paranthesis = check_for_paranthesis(var, total_count_of_equation, initial_equation)
+                value_list[count] = paranthesis
                 if paranthesis == False: 
                     list.append(index_plus[count]) # adjusted start and stop value, not real start and stop values.
                     list.append(total_count_of_equation+1)
-
+                elif paranthesis == True:
+                    temp = index_plus[count]
+                    if local_true_marked[temp] == "undone":
+                        ttj_var = ttj(index_plus, total_count_of_equation, index_plus)
+                        value_1 = ttj_var[0]
+                        list.append(value_1)
+                        value_2 = ttj_var[1]
+                        list.append(value_2)
+                        count_finished_x = ttj_var[2]
+                        int_true_marked = true_marked(count, count_finished_x, index_plus)
+                        for a in int_true_marked: 
+                            local_true_marked[a] = "done"
+    print(list)
     return list
 
-a = finding_the_right_intervalls(initial_equation)
-print(a)
 
 
 def containerized_function(right_intervalls, initial_equation):
@@ -167,8 +194,10 @@ def containerized_function(right_intervalls, initial_equation):
         whole_equation.append(["+"])
     whole_equation = whole_equation[:-1]
 
-
     return whole_equation
 
-a = containerized_function(a, initial_equation)
-print(a)
+
+
+a = finding_the_right_intervalls(initial_equation)
+b = containerized_function(a, initial_equation)
+print(b)
