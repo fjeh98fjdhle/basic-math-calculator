@@ -27,8 +27,10 @@ def true_map__true_map_2__false_map__list_map(true_map):
 
 test_true_map_2 = {1:True,2: True, 3: True}
 test_false_map_2 = {1:(0, 1),2: (2, 7), 3: (7, 12)}
-test_map = {1:"h", 2:"a" , 3:"a", 4:"l" }
+test_map = {1:"h", 2:"a" , 3:"a", 4:"l", 5:"b", 6:"b", 7:"e" }
 count = 2
+
+
 
 
 def chek(test): 
@@ -36,31 +38,62 @@ def chek(test):
     list_test = []
     new_list_test = []
     value_count =[]
+    break_count = 0
 
-    for a in test:
-        list_test.append(a)
 
     count = 0
     for a in test:
+        print(len(test))
         count += 1
+        print(count)
         if count < len(test):
+            if len(list_test)!= len(test):
+                for a in test: 
+                    list_test.append(a)
+                    print(list_test)
             if test[count] == test[count +1]: 
                 value_count.append(count)
+                print(value_count)
                 neu = test[count] + test[count +1]
-    #reconstruction_before
-    value_count = value_count[0]
-    print(value_count)
-    print(list_test[:value_count])
-    for a in list_test[:value_count]: 
-        new_list_test.append(a)
-        print(new_list_test)
+                print(neu)
+                #reconstruction_before
+                new_count = value_count[0] -1
+                print(new_count)
 
+                for a in list_test[:new_count]:
+                    new_list_test.append(a)
+                for new_var in new_list_test:
+                    new_test[new_var] = test[new_var]
+                print("new_test")
+                print(new_test)
+
+                new_number = new_list_test[-1]
+                new_number += 1
+                new_test[new_number] = neu
+
+                new_list_test.clear()
+                #reconstruction_after
+                for a in list_test[new_count + 2:]:
+                    new_list_test.append(a)
+                for new_var in new_list_test: 
+                    new_test[new_var] = test[new_var]
+                value_count.clear()
+                break_count += 1
+                if break_count == 1: 
+                    break
         
+    
+    return new_test
 
 
-    return list_test
+def again(test):
+    for n in range(len(test)):
+        test = chek(test)
+        test = chek(test)
 
-a = chek(test_map)
+    return test 
+    
+a = again(test_map)
 print(a)
 
 
