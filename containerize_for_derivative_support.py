@@ -54,31 +54,22 @@ def true_marked(count_x, count_finished_x, index_plus):
 #In addition to that, it will store the start of the loop, meaning the start "x-value" and the end, the last number before the intervall gave false, so no paranthesis's. 
 def ttj(index_list, index_count, initial_equation): 
     index_list = index_list[index_count:]
-    end_of_true = 0
-    count = 0
+    return_list = []
+    open_paran = []
+    closed_paran = []
+
+    count = -1 
     for a in index_list:
-        count += 1
-        if count < len(index_list):
-            paranthesis = check_for_paranthesis(index_list[count -1], index_list[count], initial_equation)
-            print("paranthesis")
-            print(paranthesis)
-            if paranthesis == False: 
-                end_of_true = count - 1
-                print("end_of_true")
-                print(end_of_true)
-                print(index_list[end_of_true])
-                break
-    
-    abcd = index_list[end_of_true]
-    
-    print(abcd)
+        count += 1 
+        if count +1 < len(index_list):
+            for w in initial_equation[index_list[0]:index_list[count +1]]:
+                if w == "(":
+                    open_paran.append(index_list[count])
+                elif w == ")": 
+                    closed_paran.append 
+                if len(open_paran) == len(closed_paran):
+                    last = index_list[count+1]
+                    return_list.append(w)
+                    break
 
-    st_value = index_list[0]
-    print("st_value")
-    print(st_value)
-    nd_value = abcd -1 
-    print("nd_value")
-    print(nd_value)
-
-
-    return[st_value, nd_value, end_of_true]
+    return last
