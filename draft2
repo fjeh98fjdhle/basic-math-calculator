@@ -1,0 +1,61 @@
+def universeller_checker(char, list): 
+    value = False
+    for a in list: 
+        if a == char:
+            value = True
+            return value
+        
+def list_encoding(list):
+    op_ = ["*", "-", "+", "/"]
+    comma_ = [",", "."]
+    new_list =[]
+    var_list = []
+    return_list = []
+    zahlen_ = ["1", "2", "3", "4","5", "6", "7", "8", "9", "0"]
+    for a in list: 
+        if universeller_checker(a, op_) == True: 
+            new_list.append(a)
+        elif universeller_checker(a, comma_) == True: 
+            new_list.append(",")
+        elif universeller_checker(a, zahlen_) == True: 
+            new_list.append(float(a))
+        else:
+            new_list.append(a)
+            var_list.append(a)
+
+    return_list.append(new_list)
+    return_list.append(var_list)
+
+    return return_list
+
+
+def count_of_total_index(list):
+    return len(list) -1
+
+
+def var_index_list(list): 
+    liste= list_encoding(list)
+    return liste[1]
+
+def copy_list(list, list_): 
+    for a in list_:
+        list.append(a)
+
+    return list
+
+def reconstruction(index_1, index_2, new_num, list):
+    #geht um Ausradieren.
+    print("reconstruction")
+    print(list)
+    recon_list = []
+    print(index_1)
+    if index_1 > 0: 
+        print("index_1 > 0")
+        for a in list[:index_1]: 
+            recon_list.append(a)
+    recon_list.append(new_num)
+    if index_2 < count_of_total_index(list):
+        for a in list[index_2 +1:]:
+            recon_list.append(a)
+
+    return recon_list
